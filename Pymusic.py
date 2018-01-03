@@ -24,9 +24,14 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, img1, img2, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.img1 = img1
-        self.img2 = img2        
+        self.img2 = img2
+        # The self.image variable is mandatory for Sprite objects, this contains their actual image
+        # when the sprite-group's draw() method is called, this image will be drawned to the screen        
         self.image = self.img1
-        self.rect = self.image.get_rect()
+        # The self.rect is the other mandatory variable for Sprite objects this rectangular
+        # object encloses the sprite-image, and its position will determine where the sprite-image
+        # will be drawn when the sprite-group's draw() method is called
+        self.rect = self.image.get_rect() # get rect lol XD
         self.rect.x = x
         self.rect.y = y
         self.click_timer = 0
@@ -34,9 +39,13 @@ class Button(pygame.sprite.Sprite):
     # If the button is clicked it will change image    
     def got_clicked(self):
         self.image = self.img2
-        self.click_timer = 25
+        self.click_timer = 15
     
-    # After 25 frames the button will be change its image back to the original
+    # The update(self) method is a basic empty function of Sprite objects
+    # When the sprite-group's update() method is called it calls all of its
+    # sprite's update() method, so it is clever to keep here the object's game-state 
+    # related methods. Like move or collosion detection. Right now we just check if the button
+    # is pressed, and after 15 frames we "unpress" it
     def update(self): 
         if self.click_timer > 0:
             self.click_timer -= 1
@@ -50,7 +59,8 @@ effect2 = pygame.mixer.Sound('SoundEffects\cartoon2.wav')
 effect3 = pygame.mixer.Sound('SoundEffects\cartoon3.wav')
 effect4 = pygame.mixer.Sound('SoundEffects\cartoon4.wav')
 
-# Load a music file, play it and immediatly pause it (so technically no music will be played now, button5 can start it)
+# Load a music file, play it and immediatly pause it (so technically 
+# no music will be played now, button5 can start it anytime during the game)
 pygame.mixer.music.load('Music\shine _like_a_star.mp3')
 pygame.mixer.music.play()        
 pygame.mixer.music.pause()
@@ -74,7 +84,8 @@ button2 = Button(load_image('Graphics\\button2_1.png', 'A'), load_image('Graphic
 button3 = Button(load_image('Graphics\\button3_1.png', 'A'), load_image('Graphics\\button3_2.png', 'A'), screen_width // 9 * 5, screen_height // 2)
 button4 = Button(load_image('Graphics\\button4_1.png', 'A'), load_image('Graphics\\button4_2.png', 'A'), screen_width // 9 * 7, screen_height // 2)
 
-# Make a Sprite-Group for these buttons
+# Make a Sprite-Group for these buttons, this object contains Sprite objects and able to update 
+# and draw them atonce
 all_button = pygame.sprite.Group()
 all_button.add(button1, button2, button3, button4)
 
@@ -86,7 +97,7 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == K_ESCAPE:
             running = False
 
-        # If the 1 - 4 button is pressed on the keyboard a sound effect will be played, and the corresponding Button object will also be pressed
+        # If the [1] - [4] key is pressed on the keyboard a sound effect will be played, and the corresponding Button object will also be pressed
         if event.type == pygame.KEYDOWN and event.key == K_1:
             button1.got_clicked()
             effect1.play()
@@ -99,7 +110,7 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == K_4:
             button4.got_clicked()
             effect4.play()            
-        # If the 5 key is pressed on the keyboard the music will be unpaused / paused according to its current state
+        # If the [5] key is pressed on the keyboard the music will be unpaused / paused according to its current state
         if event.type == pygame.KEYDOWN and event.key == K_5:
             if music_paused:
                 pygame.mixer.music.unpause()
