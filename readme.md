@@ -1,3 +1,5 @@
+![alt text](https://upload.wikimedia.org/wikipedia/en/0/0f/Pygame_logo.png)
+
 ## A brief intro to the wonderful, open-source, cross-platform Pygame
 
 This Python library gives us all the tools needed to create a nice 2D game or any other multi-media application using Python
