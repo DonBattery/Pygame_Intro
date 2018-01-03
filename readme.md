@@ -1,4 +1,4 @@
-##A brief intro to the wonderful, open-source, cross-platform Pygame
+##A brief intro to the wonderful, open-source, cross-platform Pygame##
 
 This Python library gives us all the tools needed to create a nice 2D game or any other multi-media application using Python
 including time, keyboard, mouse, joystick, sound and display control. 
